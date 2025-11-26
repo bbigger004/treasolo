@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# Data files
+originData.csv
+train_data.csv
+test_data.csv
+
+# Model files
+models/
+
+# Evaluation results
+evaluation/
+
+# Prediction results
+predictions/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/
+
+# Other
+*.pkl
+*.csv
