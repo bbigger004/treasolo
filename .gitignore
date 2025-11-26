@@ -10,7 +10,6 @@ env/
 ENV/
 
 # Data files
-originData.csv
 train_data.csv
 test_data.csv
 
@@ -43,3 +42,4 @@ Thumbs.db
 # Other
 *.pkl
 *.csv
+!originData.csv
