@@ -58,6 +58,7 @@ def evaluate_models(model, test_data):
     # 生成可视化图表
     plot_predictions(test_data, 'all_communities')
     plot_residuals(y_test, y_pred, 'all_communities')
+    plot_test_prediction_scatter(y_test, y_pred, 'all_communities')
     
     # 保存评估结果
     evaluation_df = pd.DataFrame([evaluation_results])
@@ -120,6 +121,31 @@ def plot_residuals(y_test, y_pred, community_id):
     
     plt.tight_layout()
     plt.savefig(f'evaluation/{community_id}_residuals.png')
+    plt.close()
+
+# 绘制测试数据与预测结果散点图
+def plot_test_prediction_scatter(y_test, y_pred, community_id):
+    """绘制测试数据与预测结果散点图"""
+    plt.figure(figsize=(10, 8))
+    
+    # 绘制散点图
+    plt.scatter(y_test, y_pred, alpha=0.5)
+    
+    # 添加理想线（y=x）
+    min_val = min(y_test.min(), y_pred.min())
+    max_val = max(y_test.max(), y_pred.max())
+    plt.plot([min_val, max_val], [min_val, max_val], 'r--', label='理想线 (y=x)')
+    
+    # 设置图表属性
+    plt.title(f'{community_id} 测试数据与预测结果对比')
+    plt.xlabel('测试数据')
+    plt.ylabel('模型预测值')
+    plt.legend()
+    plt.grid(True)
+    
+    # 保存图表
+    plt.tight_layout()
+    plt.savefig(f'evaluation/{community_id}_test_prediction_scatter.png')
     plt.close()
 
 # 生成总体评估报告

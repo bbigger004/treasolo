@@ -249,4 +249,4 @@ elif page == "预测结果":
 
 # 页脚
 st.sidebar.markdown("---")
-st.sidebar.info("小区y值预测系统 v1.0")
+st.sidebar.info("小区y值预测")
