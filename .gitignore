@@ -43,3 +43,4 @@ Thumbs.db
 *.pkl
 *.csv
 !originData.csv
+venv391/

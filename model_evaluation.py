@@ -136,6 +136,7 @@ def plot_test_prediction_scatter(y_test, y_pred, community_id):
     max_val = max(y_test.max(), y_pred.max())
     plt.plot([min_val, max_val], [min_val, max_val], 'r--', label='理想线 (y=x)')
     
+    
     # 设置图表属性
     plt.title(f'{community_id} 测试数据与预测结果对比')
     plt.xlabel('测试数据')

@@ -175,10 +175,42 @@ elif page == "模型评估":
             
             # 添加功能：所有测试数据与模型执行结果的散点图
             st.subheader("所有测试数据与模型执行结果对比")
+            # 误差在5%范围内占比  
+            all_test_predictions['偏差'] = abs(all_test_predictions['y'] - all_test_predictions['预测值'])
+            all_test_predictions['在5%范围内'] = (all_test_predictions['偏差'] <= 0.05 * all_test_predictions['y']).astype(int)
+            bias5 = all_test_predictions['在5%范围内'].mean()
+            st.write(f"测试数据误差在5%范围内占比: {bias5:.2%}")
+            # 测试数据误差在10%范围内占比
+            all_test_predictions['在10%范围内'] = (all_test_predictions['偏差'] <= 0.1 * all_test_predictions['y']).astype(int)
+            bias10 = all_test_predictions['在10%范围内'].mean()
+            st.write(f"测试数据误差在10%范围内占比: {bias10:.2%}")
+
             fig = px.scatter(all_test_predictions, x='y', y='预测值', title="测试数据与模型执行结果对比", hover_data=['小区ID', '年月'])
-            fig.add_trace(go.Scatter(x=[all_test_predictions['y'].min(), all_test_predictions['y'].max()], 
-                                   y=[all_test_predictions['y'].min(), all_test_predictions['y'].max()], 
+            min_val = all_test_predictions['y'].min()
+            max_val = all_test_predictions['y'].max()
+            # y=x
+            fig.add_trace(go.Scatter(x=[min_val, max_val], 
+                                   y=[min_val, max_val], 
                                    mode='lines', name='理想线', line=dict(color='red', dash='dash')))
+            # y=0.95x
+            fig.add_trace(go.Scatter(x=[min_val, max_val], 
+                                   y=[0.95*min_val, 0.95*max_val], 
+                                   mode='lines', name='0.95x线', line=dict(color='green', dash='dash')))
+            # y=1.05x
+            fig.add_trace(go.Scatter(x=[min_val, max_val], 
+                                y=[1.05*min_val, 1.05*max_val], 
+                                mode='lines', name='1.05x线', line=dict(color='orange', dash='dash')))
+        
+            # y=1.1x
+            fig.add_trace(go.Scatter(x=[min_val, max_val], 
+                                y=[1.1*min_val, 1.1*max_val], 
+                                mode='lines', name='1.1x线', line=dict(color='purple', dash='dash')))
+
+            # y=0.9x
+            fig.add_trace(go.Scatter(x=[min_val, max_val], 
+                                y=[0.9*min_val, 0.9*max_val], 
+                                mode='lines', name='0.9x线', line=dict(color='blue', dash='dash')))
+            
             fig.update_layout(xaxis_title="测试数据", yaxis_title="模型预测值")
             st.plotly_chart(fig, use_container_width=True)
     else:

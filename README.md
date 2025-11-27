@@ -28,7 +28,7 @@
 ### 2. 安装依赖
 
 ```bash
-pip install pandas numpy xgboost scikit-learn matplotlib seaborn
+pip install pandas numpy xgboost scikit-learn matplotlib seaborn streamlit   plotly   scikit-learn joblib
 ```
 
 ## 使用方法
